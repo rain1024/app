@@ -1,6 +1,33 @@
 // Generated on 2014-12-17 using generator-angular 0.9.8
 'use strict';
 
+var isWin = /^win/.test(process.platform);
+var isMac = /^darwin/.test(process.platform);
+var isLinux32 = /^linux/.test(process.platform);
+var isLinux64 = /^linux64/.test(process.platform);
+
+var os = "unknown";
+
+if (isWin)
+    os = "win";
+if (isMac)
+    os = "mac";
+if (isLinux32)
+    os = "linux32";
+if (isLinux64)
+    os = "linux64";
+
+var nwVer = '0.9.2';
+
+var nwExec = "";
+
+if (!isMac)
+    nwExec = "cd cache/" + os + "/" + nwVer + " && nw ../../../src";
+else
+    nwExec = "cd cache/" + os + "/" + nwVer + " && open -n -a node-webkit ../../../src";
+
+console.log("OS: " + os);
+
 // # Globbing
 // for performance reasons we're only matching one level down:
 // 'test/spec/{,*/}*.js'
@@ -26,6 +53,21 @@ module.exports = function (grunt) {
 
     // Project settings
     yeoman: appConfig,
+	
+	nodewebkit: {
+		options: {
+			version: nwVer,
+			build_dir: './',
+			mac: isMac,
+			win: isWin,
+			linux32: isLinux32,
+			linux64: isLinux64,
+			keep_nw: false,
+			zip: false,
+			mac_icns:'./src/images/angular-desktop-app.icns'
+		},
+		src: ['./dist/**/*']
+	},
 
     // Watches files for changes and runs tasks based on the changed files
     watch: {
@@ -360,7 +402,11 @@ module.exports = function (grunt) {
         cwd: '<%= yeoman.app %>/styles',
         dest: '.tmp/styles/',
         src: '{,*/}*.css'
-      }
+      },
+	  packageJson : {
+	    src: '<%= yeoman.app %>/package.json',
+	    dest: '<%= yeoman.dist %>/package.json'
+	  }
     },
 
     // Run some tasks in parallel to speed up the build process
@@ -387,7 +433,8 @@ module.exports = function (grunt) {
     }
   });
 
-
+  grunt.loadNpmTasks('grunt-node-webkit-builder');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'dist') {
       return grunt.task.run(['build', 'connect:dist:keepalive']);
@@ -413,7 +460,7 @@ module.exports = function (grunt) {
     'concurrent:test',
     'autoprefixer',
     'connect:test',
-    'karma'
+    // 'karma'
   ]);
 
   grunt.registerTask('build', [
@@ -430,12 +477,18 @@ module.exports = function (grunt) {
     'uglify',
     'filerev',
     'usemin',
-    'htmlmin'
+    'htmlmin',
+    'copy:packageJson'
   ]);
 
   grunt.registerTask('default', [
     'newer:jshint',
     'test',
     'build'
+  ]);
+
+  grunt.registerTask('buildApp', [
+	'build',
+    'nodewebkit'
   ]);
 };
