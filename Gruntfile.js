@@ -1,32 +1,34 @@
-// Generated on 2014-12-17 using generator-angular 0.9.8
 'use strict';
+
+// Configuration
+var app = {
+	'name' : 'desktop-app'
+};
+
 
 var isWin = /^win/.test(process.platform);
 var isMac = /^darwin/.test(process.platform);
 var isLinux32 = /^linux/.test(process.platform);
 var isLinux64 = /^linux64/.test(process.platform);
 
-var os = "unknown";
+var os = 'unknown';
 
 if (isWin)
-    os = "win";
+    os = 'win';
 if (isMac)
-    os = "mac";
+    os = 'mac';
 if (isLinux32)
-    os = "linux32";
+    os = 'linux32';
 if (isLinux64)
-    os = "linux64";
+    os = 'linux64';
 
 var nwVer = '0.9.2';
 
-var nwExec = "";
+var nwExec = '';
 
-if (!isMac)
-    nwExec = "cd cache/" + os + "/" + nwVer + " && nw ../../../src";
-else
-    nwExec = "cd cache/" + os + "/" + nwVer + " && open -n -a node-webkit ../../../src";
+nwExec = './releases/' + app.name + '/linux32/' + app.name +  '/' + app.name;
 
-console.log("OS: " + os);
+console.log('OS: ' + os);
 
 // # Globbing
 // for performance reasons we're only matching one level down:
@@ -430,11 +432,27 @@ module.exports = function (grunt) {
         configFile: 'test/karma.conf.js',
         singleRun: true
       }
-    }
+    },
+
+	// Run app
+	shell: {
+		run : {
+			command: function() {
+				console.log(nwExec);
+				return nwExec;
+			},
+			options: {
+				stdout: true,
+				stderr: true,
+				stdin: true
+			}
+		}
+	}
   });
 
   grunt.loadNpmTasks('grunt-node-webkit-builder');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-shell');
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'dist') {
       return grunt.task.run(['build', 'connect:dist:keepalive']);
@@ -491,4 +509,13 @@ module.exports = function (grunt) {
 	'build',
     'nodewebkit'
   ]);
+
+  grunt.registerTask('runApp', [
+	'shell:run',
+  ]);
+
+  grunt.registerTask('buildAndRunApp', [
+    'buildApp',
+	'runApp'
+  ])
 };
