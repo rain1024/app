@@ -26,7 +26,7 @@ var nwVer = '0.9.2';
 
 var nwExec = '';
 
-nwExec = './releases/' + app.name + '/linux32/' + app.name +  '/' + app.name;
+nwExec = './releases/' + app.name + '/linux32/' + app.name;
 
 console.log('OS: ' + os);
 
@@ -59,7 +59,7 @@ module.exports = function (grunt) {
 	nodewebkit: {
 		options: {
 			version: nwVer,
-			build_dir: './',
+			build_dir: './releases',
 			mac: isMac,
 			win: isWin,
 			linux32: isLinux32,
@@ -514,7 +514,7 @@ module.exports = function (grunt) {
 	'shell:run',
   ]);
 
-  grunt.registerTask('buildAndRunApp', [
+  grunt.registerTask('desktop', [
     'buildApp',
 	'runApp'
   ])

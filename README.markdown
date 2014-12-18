@@ -21,23 +21,23 @@ Success! Desktop App is ready for you. Come [usage section](#usage) to see how i
 ### Usage
 
 ```sh
-# Open browser
+# Run Web Application 
 grunt serve
 ```
 
 ```sh
-# Build 
+# Build app 
 grunt buildApp
 ```
 
 ```sh
-# Run application 
+# Run Desktop Application 
 grunt runApp
 ```
 
 ```sh
-# Build and Run application 
-grunt buildAndRunApp
+# Build and Run Desktop Application 
+grunt desktop 
 ```
 
 ### Changes
@@ -45,12 +45,13 @@ grunt buildAndRunApp
 **Next**
 
 * Build complete **Note** app
-	* Two resource `tags` and `tasks`
 	* Memory: Nedb
+	* Two resource `tags` and `notes`
 
 **Done**
 
-* Build complete todo list app <- (vesion 1.0.0)
+* Web
+	* Build complete todo list app <- (vesion 1.0.0)
 	* Enhance UI 
 	* CRUD
 
