@@ -10,8 +10,10 @@
 	<li class="list-group-item" ng-repeat="task in model.docs">
 		<input type="checkbox" ng-model="task.done" />
 		&nbsp;
-		{{ task.name }}
-		<button class="btn btn-danger btn-xs" ng-click="model.delete(task)">
+		<a href="#" editable-text="task.name">
+			{{ task.name || 'empty' }}
+		</a>
+		<button class="pull-right btn btn-danger btn-xs" ng-click="model.delete(task)">
 			Delete
 		</button>
 	</li>

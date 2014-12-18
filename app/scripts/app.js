@@ -8,14 +8,15 @@
  *
  * Main module of the application.
  */
-angular
+var app = angular
   .module('desktopAppApp', [
     'ngAnimate',
     'ngCookies',
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+	'xeditable'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -31,3 +32,7 @@ angular
         redirectTo: '/'
       });
   });
+
+app.run(function(editableOptions){
+	editableOptions.theme = 'bs3';
+})
