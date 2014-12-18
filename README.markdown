@@ -5,6 +5,19 @@
 * Localstorage
 * AngularJS, Nodewebkit
 
+### Installation
+
+1. Go to git release, download the lastest version
+2. Unzip
+3. Install dependences
+
+```
+npm install
+bower install
+```
+
+Success! Desktop App is ready for you. Come [usage section](#Usage) to see how it works.
+
 ### Usage
 
 ```sh
@@ -38,12 +51,14 @@ grunt buildAndRunApp
 
 ### Dependences
 
-Bower Modules
+**Bower Modules**
 
-* underscore
+* CSS/HTML : `boostrap 3`
+* Javascript Utilities: `underscore`
+* Angular Directive: `x-editable`
 
-Angular Directive
+**NPM Modules**
 
-* x-editable
+* Builder: `grunt-node-webkit-builder`
 
-Npm Modules
+Based on other awesome works: `yo`, `grunt`
