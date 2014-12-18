@@ -1,16 +1,20 @@
+<div>
 <h3>Simple Todo App</h3>
 <hr/>
 
-<input class="form-control" style="width:66%; float:left" type="text" placeholder="Enter new task" ng-model="model.new.name"></input>
-<button class="btn btn-success" ng-click="add()" >Add</button>
+<input class="form-control" style="width:66%; float:left" type="text" placeholder="Enter new task" ng-model="model.newDoc.name"></input>
+<button class="btn btn-success" ng-click="model.insert()" >Add</button>
 <br/>
-{{ model.new }}
 <br/>
-<ul class="list-group">
-	<li class="list-group-item" ng-repeat="task in tasks">
-		<input type="checkbox"/>
+<ul class="list-group"; ng-init="tasks = model.docs">
+	<li class="list-group-item" ng-repeat="task in model.docs">
+		<input type="checkbox" ng-model="task.done" />
 		&nbsp;
 		{{ task.name }}
+		<button class="btn btn-danger btn-xs" ng-click="model.delete(task)">
+			Delete
+		</button>
 	</li>
 </ul>
-
+{{ model.find() }}
+</div>

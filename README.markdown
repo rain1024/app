@@ -35,3 +35,11 @@ grunt buildAndRunApp
 ### Done
 
 * Build app successfully
+
+### Dependences
+
+Bower Modules
+
+* underscore
+
+Npm Modules
