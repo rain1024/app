@@ -7,9 +7,11 @@
  * # Database
  * Service in the desktopAppApp.
  */
+
 angular.module('desktopAppApp')
   .service('Database', function Database(config) {
-    // AngularJS will instantiate a singleton by calling "new" on this function
+      // AngularJS will instantiate a singleton by
+	  // calling "new" on this function
 
 	  // =======================
 	  // Database Service

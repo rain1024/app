@@ -16,7 +16,7 @@ npm install
 bower install
 ```
 
-Success! Desktop App is ready for you. Come [usage section](#Usage) to see how it works.
+Success! Desktop App is ready for you. Come [usage section](#usage) to see how it works.
 
 ### Usage
 
