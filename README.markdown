@@ -42,4 +42,8 @@ Bower Modules
 
 * underscore
 
+Angular Directive
+
+* x-editable
+
 Npm Modules
