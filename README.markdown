@@ -2,7 +2,7 @@
 
 ### Features
 
-* Localstorage
+* LocalStorage
 * AngularJS, Nodewebkit
 
 ### Installation
@@ -59,8 +59,14 @@ grunt buildAndRunApp
 * ★★★★☆ App (Window, Linux support)
 * ★★★☆☆ Mobile (UI, build support)
 * ★☆☆☆☆ Complete UI Set
+* ★☆☆☆☆ Dropbox, Google Drive API support 
 
 ### Dependences
+
+**Core**
+
+* AngularJS
+* Node-Webkit
 
 **Bower Modules**
 
