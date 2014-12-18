@@ -40,14 +40,25 @@ grunt runApp
 grunt buildAndRunApp
 ```
 
-### Next
+### Changes
 
-* Build complete todo list app
-	* Change Interface to Todo app 
+**Next**
 
-### Done
+* Build complete **Note** app
+	* Two resource `tags` and `tasks`
+	* Memory: Nedb
 
-* Build app successfully
+**Done**
+
+* Build complete todo list app <- (vesion 1.0.0)
+	* Enhance UI 
+	* CRUD
+
+**Future**
+
+* ★★★★☆ App (Window, Linux support)
+* ★★★☆☆ Mobile (UI, build support)
+* ★☆☆☆☆ Complete UI Set
 
 ### Dependences
 
