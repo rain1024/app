@@ -12,8 +12,12 @@
 3. Install dependences
 
 ```
+# install npm modules
 npm install
-bower install
+# install bower modules
+# install nodejs app dependences modules 
+cd app
+npm install 
 ```
 
 Success! Desktop App is ready for you. Come [usage section](#usage) to see how it works.

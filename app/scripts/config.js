@@ -1,0 +1,3 @@
+var CONFIGURATION = {
+	'database':'memory'
+};

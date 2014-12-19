@@ -35,4 +35,4 @@ var app = angular
 
 app.run(function(editableOptions){
 	editableOptions.theme = 'bs3';
-})
+});

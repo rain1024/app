@@ -1,10 +1,19 @@
 'use strict';
 
 // Configuration
-var app = {
-	'name' : 'desktop-app'
+var config = {
+	'appName' : 'desktop-app',
+	'databaseType': 'memory', /* either memory, nedb */
+	'defaultDatabaseType' : 'memory'
 };
 
+var setConfiguration = function(type){
+	if(type === 'web'){
+		config.databaseType = 'memory';
+	} else if (type === 'desktop'){
+		config.databaseType = 'nedb';
+	}
+}
 
 var isWin = /^win/.test(process.platform);
 var isMac = /^darwin/.test(process.platform);
@@ -26,7 +35,7 @@ var nwVer = '0.9.2';
 
 var nwExec = '';
 
-nwExec = './releases/' + app.name + '/linux32/' + app.name;
+nwExec = './releases/' + config.appName + '/linux32/' + config.appName;
 
 console.log('OS: ' + os);
 
@@ -405,9 +414,24 @@ module.exports = function (grunt) {
         dest: '.tmp/styles/',
         src: '{,*/}*.css'
       },
-	  packageJson : {
-	    src: '<%= yeoman.app %>/package.json',
-	    dest: '<%= yeoman.dist %>/package.json'
+	  nodeDependencies : {
+        expand: true,
+		dot: true,
+		cwd: '<%= yeoman.app %>',
+	    dest: '<%= yeoman.dist %>',
+	    src: [
+			'package.json',
+			'node_modules/**/*.*'
+		]
+	  },
+	  configuration: {
+	    src : '<%= yeoman.app %>/scripts/config.js',
+		dest: '<%= yeoman.dist %>/scripts/config.js',
+		options : {
+			process: function(content, srcpath){
+				return content.replace(new RegExp(config.defaultDatabaseType, 'g'), config.databaseType);
+			}
+		}
 	  }
     },
 
@@ -453,6 +477,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-node-webkit-builder');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-shell');
+
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'dist') {
       return grunt.task.run(['build', 'connect:dist:keepalive']);
@@ -496,7 +521,8 @@ module.exports = function (grunt) {
     'filerev',
     'usemin',
     'htmlmin',
-    'copy:packageJson'
+    'copy:nodeDependencies',
+	'copy:configuration'
   ]);
 
   grunt.registerTask('default', [
@@ -505,17 +531,26 @@ module.exports = function (grunt) {
     'build'
   ]);
 
-  grunt.registerTask('buildApp', [
-	'build',
-    'nodewebkit'
-  ]);
+  grunt.registerTask('buildWeb', 'Build web application', function(){
+	setConfiguration('web');
+    grunt.task.run([
+	  'build'
+	]);
+  });
+  grunt.registerTask('buildDesktop', 'Build desktop application', function(){
+	setConfiguration('desktop');
+    grunt.task.run([
+	  'build',
+	  'nodewebkit'
+	]);
+  });
 
-  grunt.registerTask('runApp', [
+  grunt.registerTask('runDesktop', [
 	'shell:run',
   ]);
 
   grunt.registerTask('desktop', [
-    'buildApp',
-	'runApp'
+    'buildDesktop',
+	'runDesktop'
   ])
 };

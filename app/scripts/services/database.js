@@ -9,7 +9,7 @@
  */
 
 angular.module('desktopAppApp')
-  .service('Database', function Database(config) {
+  .service('Database', function Database() {
       // AngularJS will instantiate a singleton by
 	  // calling "new" on this function
 
@@ -17,12 +17,13 @@ angular.module('desktopAppApp')
 	  // Database Service
 	  // ======================
 	  var DatabaseService = function() {
-		  var db = new Object();
-		  if(config.database == 'memory')
+		  var db = {};
+		  var databaseType = CONFIGURATION.database;
+		  if(databaseType === 'memory'){
 			  db = new MemoryDatabaseService();
-		  else if(config.database = 'nedb'){
-			  db = new NedbDatabaseService();
-		  } else if (config.database = 'webserivce'){
+		  } else if(databaseType === 'nedb'){
+			  db = new database.Nedb();
+		  } else if (databaseType === 'webserivce'){
 			  db = new WebDatabaseService();
 		  }
 		  return db;
@@ -32,22 +33,26 @@ angular.module('desktopAppApp')
 
 	  DatabaseServiceInterface.prototype.toString = function(){
 		  return 'Somekind of DatabaseService is loaded';
-	  }
+	  };
 
 	  DatabaseServiceInterface.prototype.load = function(name){
-		  return new DataStore(name); 
-	  }
+	  	  console.log("DatabaseService load datastore");
+	      return new DataStore(name); 
+	  };
 
+	  function MemoryDatabaseService(){}
 	  MemoryDatabaseService.prototype = new DatabaseServiceInterface(); 
 	  MemoryDatabaseService.prototype.constructor = MemoryDatabaseService;
-	  function MemoryDatabaseService(){};
 	  MemoryDatabaseService.prototype.toString = function(){
-		  return 'MemoryData is loaded';
-	  }
+		  return 'MemoryDatabase is loaded';
+	  };
 
-	  var NebbDatabaseService = new DatabaseServiceInterface(); 
-
-	  var WebDatabaseSerivce = new DatabaseServiceInterface(); 
+	  function WebDatabaseService(){}
+	  WebDatabaseService.prototype = new DatabaseServiceInterface(); 
+	  WebDatabaseService.prototype.constructor = WebDatabaseService;
+	  WebDatabaseService.prototype.toString = function(){
+		  return 'WebDatabase is loaded';
+	  };
 
 	  // =======================
 	  // Database Store 
@@ -68,9 +73,9 @@ angular.module('desktopAppApp')
 			}
 		  ];
 		  this.newDoc = {};
-		  this.newDoc.name = "abc";
+		  this.newDoc.name = 'abc';
 	  };
-	  DataStore.prototype.constructor = function(name) {};
+	  DataStore.prototype.constructor = function() {};
 	  DataStore.prototype.find = function() {
 		  return this.docs;
 	  };

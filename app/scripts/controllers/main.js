@@ -10,7 +10,7 @@
 angular.module('desktopAppApp')
   .controller('MainCtrl', function (Database, $scope) {
 
-	$scope.model = Database().load();
+	$scope.model = new Database().load();
 
 	// $scope.insert= function(){
 	// 	$scope.model.new.done = 0;
