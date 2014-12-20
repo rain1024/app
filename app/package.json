@@ -9,8 +9,8 @@
   },
   "window": {
     "toolbar": true,
-    "width": 1200,
-    "height": 960,
+    "width": 800,
+    "height": 600,
     "icon": "images/favicon.ico"
   },
   "dependencies": {
