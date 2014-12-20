@@ -16,13 +16,16 @@ angular.module('desktopAppApp')
 	  // =======================
 	  // Database Service
 	  // ======================
+
 	  var DatabaseService = function() {
+		  console.log("create database service");
 		  var db = {};
 		  var databaseType = CONFIGURATION.database;
 		  if(databaseType === 'memory'){
 			  db = new MemoryDatabaseService();
 		  } else if(databaseType === 'nedb'){
-			  db = new database.Nedb();
+			  var config = {folder : '/home/rain'}
+			  db = new NedbAdapter(config);
 		  } else if (databaseType === 'webserivce'){
 			  db = new WebDatabaseService();
 		  }
@@ -58,33 +61,51 @@ angular.module('desktopAppApp')
 	  // Database Store 
 	  // ======================
 	  var DataStore = function(){
-		  this.docs = [
+		  this.items = [
 			{ 
+			    '_id' : 1,
 				'name' : 'Dolor quos debitis natus pariatur',
 				'done' : true
 			},
 			{ 
+			    '_id' : 2,
 				'name' : 'Magnam nostrum aspernatur nobis tempore ',
 				'done' : false
 			},
 			{ 
+			    '_id' : 3,
 				'name' : 'Dicta quis quas ipsam modi pariatur ',
 				'done' : true
 			}
 		  ];
-		  this.newDoc = {};
-		  this.newDoc.name = 'abc';
 	  };
+
 	  DataStore.prototype.constructor = function() {};
-	  DataStore.prototype.find = function() {
-		  return this.docs;
+
+	  DataStore.prototype.find = function(query, callback) {
+		  callback(null, this.items);
 	  };
-	  DataStore.prototype.insert = function(){
-		  this.docs.push(this.newDoc);
-		  this.newDoc = {};
+
+	  DataStore.prototype.insert = function(item, callback){
+		  item._id = Math.floor((Math.random() * 1000) + 100);
+		  this.items.push(item);
+		  if(callback) callback(null);
 	  };
-	  DataStore.prototype.delete = function(doc){
-		  this.docs = _.without(this.docs, doc);
+
+	  DataStore.prototype.update = function(query, update, option, callback){
+		  var match = _.findWhere(this.items, query);
+		  if(match) {
+			  match = update;
+		  }
+		  if(callback) callback(null, null);
+	  };
+
+	  DataStore.prototype.remove = function(query, options, callback){
+		  var matches = _.where(this.items, query);
+		  console.log("Matches")
+		  console.log(matches);
+		  this.items = _.difference(this.items, matches);
+		  callback(null, null);
 	  };
 
 	  return DatabaseService; 

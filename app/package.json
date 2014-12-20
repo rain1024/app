@@ -14,7 +14,8 @@
     "icon": "images/favicon.ico"
   },
   "dependencies": {
-    "request": "~2.27.0"
+    "request": "~2.27.0",
+    "nedb-adapter": "*"
   },
   "scripts": {}
 }

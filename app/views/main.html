@@ -8,10 +8,10 @@
 <div class="row">
   <div class="col-xs-12">
     <div class="input-group">
-      <input type="text" class="form-control" ng-model="model.newDoc.name">
+      <input type="text" class="form-control" ng-model="newItem.name">
       <span class="input-group-btn">
         <button class="btn btn-success"
-			type="button" ng-click="model.insert()">
+			type="button" ng-click="insert(newItem)">
 			Add
 		</button>
       </span>
@@ -19,14 +19,15 @@
   </div>
 </div> <!-- /.row -->
 <br/>
-<ul class="list-group"; ng-init="tasks = model.docs">
-	<li class="list-group-item" ng-repeat="task in model.docs">
+{{ tasks }}
+<ul class="list-group";>
+	<li class="list-group-item" ng-repeat="task in tasks track by $index">
 		<input type="checkbox" ng-model="task.done" />
 		&nbsp;
-		<a href="#" editable-text="task.name">
+		<a href="#" editable-text="task.name" onaftersave="update(task)">
 			{{ task.name || 'empty' }}
 		</a>
-		<button class="pull-right btn btn-danger btn-xs" ng-click="model.delete(task)">
+		<button class="pull-right btn btn-danger btn-xs" ng-click="remove(task)">
 			Delete
 		</button>
 	</li>
