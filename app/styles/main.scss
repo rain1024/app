@@ -1,9 +1,9 @@
 $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
 // bower:scss
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
+// endbower
 
 @import url(http://fonts.googleapis.com/css?family=Josefin+Slab:400,700);
-// endbower
 
 .browsehappy {
   margin: 0.2em 0;
@@ -13,6 +13,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 }
 
 $main-color : #1E87E5;
+
 
 /* Space out content a bit */
 body {
