@@ -1,4 +1,10 @@
-## Desktop App for All
+## Development Kit for every developers 
+
+Do you love html, css, js? Do you love yo, grunt, nodejs?
+
+Do you want build desktop app, mobile app, web app?
+
+We works hard for making a **sdk** for you.
 
 ### Features
 
@@ -23,7 +29,7 @@ npm install
 
 Success! Desktop App is ready for you. Come [usage section](#usage) to see how it works.
 
-### Usage
+### API 
 
 ```sh
 # Run Web Application 
@@ -45,29 +51,7 @@ grunt runDesktop
 grunt desktop 
 ```
 
-### Changes
-
-#### Version 1
-
-**Next**
-
-* Build complete **Note** app
-	✔ Memory: Nedb
-	* Two resource `tags` and `notes`
-
-**Done**
-
-* Web
-	* Build complete todo list app <- (vesion 1.0.0)
-	* Enhance UI 
-	* CRUD
-
-**Future**
-
-* ★★★★☆ App (Window, Linux support)
-* ★★★☆☆ Mobile (UI, build support)
-* ★☆☆☆☆ Complete UI Set
-* ★☆☆☆☆ Dropbox, Google Drive API support 
+[what's next?](https://github.com/rain1024/desktop-app/issues?q=is%3Aissue+is%3Aopen)
 
 ### Dependences
 
