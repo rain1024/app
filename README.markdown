@@ -15,6 +15,7 @@
 # install npm modules
 npm install
 # install bower modules
+bower install
 # install nodejs app dependences modules 
 cd app
 npm install 
@@ -30,13 +31,13 @@ grunt serve
 ```
 
 ```sh
-# Build app 
-grunt buildApp
+# Build Desktop Application 
+grunt buildDesktop
 ```
 
 ```sh
 # Run Desktop Application 
-grunt runApp
+grunt runDesktop
 ```
 
 ```sh
@@ -46,10 +47,12 @@ grunt desktop
 
 ### Changes
 
+#### Version 1
+
 **Next**
 
 * Build complete **Note** app
-	* Memory: Nedb
+	✔ Memory: Nedb
 	* Two resource `tags` and `notes`
 
 **Done**
