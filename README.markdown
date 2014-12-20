@@ -13,7 +13,7 @@ We works hard for making a **sdk** for you.
 
 ### Installation
 
-1. Go to git release, download the lastest version
+1. Go to [git release](https://github.com/rain1024/desktop-app/releases), download the lastest version
 2. Unzip
 3. Install dependences
 
