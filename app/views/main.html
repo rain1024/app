@@ -1,14 +1,15 @@
-<div>
+<div class="menu">
+	<h3 class="text-center">
+		Simple Note 
+	</h3>
+</div>
 
-<h3 class="text-center">
-	Simple Note 
-</h3>
-<hr/>
+<div class="container">
 
 <div class="row">
   <div class="col-xs-12">
     <div class="input-group">
-      <input type="text" class="form-control" ng-model="newItem.name">
+		<input type="text" placeholder="Make a note here." class="form-control" ng-model="newItem.name">
       <span class="input-group-btn">
         <button class="btn btn-success"
 			type="button" ng-click="insert(newItem)">
@@ -19,11 +20,9 @@
   </div>
 </div> <!-- /.row -->
 <br/>
-{{ tasks }}
-<ul class="list-group";>
-	<li class="list-group-item" ng-repeat="task in tasks track by $index">
-		<input type="checkbox" ng-model="task.done" />
-		&nbsp;
+
+<ul class="card-group";>
+	<li class="card" ng-repeat="task in tasks track by $index">
 		<a href="#" editable-text="task.name" onaftersave="update(task)">
 			{{ task.name || 'empty' }}
 		</a>
