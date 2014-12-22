@@ -7,7 +7,8 @@
 <div class="container">
 	<div class="card" ng-init="isShowForm = true">
 		<div class="card-input">
-			<input type="text" placeholder="Make a note here." class="no-border" ng-focus="isShowForm = true" ng-model="newItem.name">
+			<textarea type="text" placeholder="Make a note here." class="no-border" ng-focus="isShowForm = true" ng-model="newItem.name" autofocus>
+			</textarea>
 		</div>
 		<div class="card-action card-top-border">
 			<div class="card-right">
@@ -19,19 +20,47 @@
 	</div>
 
 	<ul class="card-group";>
-		<li class="card" ng-repeat="task in tasks track by $index">
-			<div class="card-text">
-				<a href="#" editable-text="task.name" onaftersave="update(task)">
-					{{ task.name || 'empty' }}
-				</a>
-			</div>
-			<div class="card-action card-top-border">
-				<div class="card-right">
-					<button class="card-button" ng-click="remove(task)">
-						Delete
-					</button>
+		<li ng-repeat="task in tasks track by $index"
+			ng-mouseover="isFocus=true"
+			ng-mouseleave="isFocus=false"
+			ng-init="isFocus = false; isEditing = false">
+			<!-- <div class="card&#45;text"> -->
+			<!-- 	<a href="#" editable&#45;text="task.name" onaftersave="update(task)"> -->
+			<!-- 		{{ task.name || 'empty' }} -->
+			<!-- 	</a> -->
+			<!-- </div> -->
+
+			<div class="card-edit" ng-show="isEditing">
+
+				<div class="card">
+					<div class="card-input">
+						<textarea type="text" placeholder="Make a note here." class="no-border" ng-focus="isShowForm = true" ng-model="task.name" autofocus>
+						</textarea>
+					</div>
+					<div class="card-action card-top-border">
+						<div class="card-right">
+							<button class="card-button" ng-click="update(task); isEditing = false">
+								Update	
+							</button>
+						</div>
+					</div>
 				</div>
 			</div>
+			
+
+			<!-- <div class="card&#45;edit" ng&#45;show="isEditing"> -->
+			<div class="card">
+				<div class="card-text" ng-mousedown="isEditing= true">{{ task.name || 'empty' }}</div>
+				<div class="card-action card-top-border"
+					ng-show="isFocus" >
+					<div class="card-right">
+						<button class="card-button" ng-click="remove(task)">
+							Delete
+						</button>
+					</div>
+				</div>
+			</div> 
+
 		</li>
 	</ul>
 

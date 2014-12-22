@@ -100,16 +100,18 @@ body {
 ul.card-group {
 	margin: 0px;
 	padding: 0px;
+	li {
+		list-style-type: none;
+		margin-top: 10px;
+	}
 }
 
 .card {
-	background-color: white;
-	list-style-type: none;
-	margin-top: 10px;
 	border: solid 1px rgb(236, 236, 236);
 	border-radius: 2px;
 	box-shadow: 2px 2px 1px rgba(194, 194, 194, 0.46);
 	position: relative;
+	background-color: white;
 
 	.card-component {
 		overflow: hidden;
@@ -128,6 +130,9 @@ ul.card-group {
 
 	.card-text {
 		@extend .card-component;
+		cursor: pointer;
+		white-space: pre-wrap;
+		font-size: 1.2em;
 	}
 	.card-input {
 		@extend .card-component;
@@ -135,6 +140,18 @@ ul.card-group {
 	.card-action {
 		@extend .card-component;
 	}
+
+}
+
+.card-edit {
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	padding: 30% 2%;
+	background: rgba(115, 115, 115, 0.41);
+	height: 100%;
+	z-index: 1;
+	position: fixed;
 }
 
 button {
@@ -155,9 +172,17 @@ button {
 	}
 }
 
-input {
-	width: 100%;
+textarea, input {
+	width: 100% !important;
 	padding: 10px;
+	border: none;
+	overflow: auto;
+	outline: none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	resize: none;
+	font-size: 1.3em;
 }
 
 .menu {
