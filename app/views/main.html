@@ -23,10 +23,10 @@
 		<li ng-repeat="task in tasks track by $index"
 			ng-mouseover="isFocus=true"
 			ng-mouseleave="isFocus=false"
-			ng-init="isFocus = false; isEditing = false; temp = getClone(task)">
+			ng-init="isFocus = false; isEditing = false">
 
-			<div class="modal-container " ng-show="isEditing">
-				<div class="modal-background" ng-click="isEditing = false">
+			<div class="modal-container" ng-show="isEditing" ng-init="temp = getClone(task)">
+				<div class="modal-background" ng-click="isEditing = false; temp = getClone(task)">
 				</div>
 				<div class="modal-component animate-fadeInUp">
 					<div class="card">
@@ -36,7 +36,7 @@
 						</div>
 						<div class="card-action card-top-border">
 							<div class="card-right">
-								<button class="card-button" ng-click="isEditing = false">
+								<button class="card-button" ng-click="isEditing = false; temp = getClone(task)">
 									Cancel
 								</button>
 								<button class="card-button" ng-click="update(temp); isEditing = false">
