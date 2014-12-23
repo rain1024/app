@@ -38,29 +38,13 @@ angular.module('desktopAppApp')
 		  return 'Somekind of DatabaseService is loaded';
 	  };
 
-	  DatabaseServiceInterface.prototype.load = function(name){
-	  	  console.log("DatabaseService load datastore");
-	      return new DataStore(name); 
+	  DatabaseServiceInterface.prototype.load = function(){
+		  throw 'load function must be implemented';
 	  };
-
-	  function MemoryDatabaseService(){}
-	  MemoryDatabaseService.prototype = new DatabaseServiceInterface(); 
-	  MemoryDatabaseService.prototype.constructor = MemoryDatabaseService;
-	  MemoryDatabaseService.prototype.toString = function(){
-		  return 'MemoryDatabase is loaded';
-	  };
-
-	  function WebDatabaseService(){}
-	  WebDatabaseService.prototype = new DatabaseServiceInterface(); 
-	  WebDatabaseService.prototype.constructor = WebDatabaseService;
-	  WebDatabaseService.prototype.toString = function(){
-		  return 'WebDatabase is loaded';
-	  };
-
 	  // =======================
 	  // Database Store 
 	  // ======================
-	  var DataStore = function(){
+	  var MemoryDataStore = function(){
 		  this.items = [
 			{ 
 			    '_id' : 1,
@@ -80,33 +64,54 @@ angular.module('desktopAppApp')
 		  ];
 	  };
 
-	  DataStore.prototype.constructor = function() {};
+	  MemoryDataStore.prototype.constructor = function() {};
 
-	  DataStore.prototype.find = function(query, callback) {
+	  MemoryDataStore.prototype.find = function(query, callback) {
 		  callback(null, this.items);
 	  };
 
-	  DataStore.prototype.insert = function(item, callback){
+	  MemoryDataStore.prototype.insert = function(item, callback){
 		  item._id = Math.floor((Math.random() * 1000) + 100);
 		  this.items.push(item);
 		  if(callback) callback(null);
 	  };
 
-	  DataStore.prototype.update = function(query, update, option, callback){
-		  var match = _.findWhere(this.items, query);
-		  if(match) {
-			  match = update;
-		  }
+	  MemoryDataStore.prototype.update = function(query, update, option, callback){
+		  this.items = _.map(this.items, function(item){
+			  if(item._id === query._id){
+				return _.extend(item, update.$set);
+			  } else{
+				  return item;
+			  }
+		  })
 		  if(callback) callback(null, null);
 	  };
 
-	  DataStore.prototype.remove = function(query, options, callback){
+	  MemoryDataStore.prototype.remove = function(query, options, callback){
 		  var matches = _.where(this.items, query);
 		  console.log("Matches")
 		  console.log(matches);
 		  this.items = _.difference(this.items, matches);
 		  callback(null, null);
 	  };
+	  function MemoryDatabaseService(){}
+	  MemoryDatabaseService.prototype = new DatabaseServiceInterface(); 
+	  MemoryDatabaseService.prototype.constructor = MemoryDatabaseService;
+	  MemoryDatabaseService.prototype.toString = function(){
+		  return 'MemoryDatabase is loaded';
+	  };
+
+	  MemoryDatabaseService.prototype.load = function(name){
+		  return new MemoryDataStore();
+	  }
+
+	  function WebDatabaseService(){}
+	  WebDatabaseService.prototype = new DatabaseServiceInterface(); 
+	  WebDatabaseService.prototype.constructor = WebDatabaseService;
+	  WebDatabaseService.prototype.toString = function(){
+		  return 'WebDatabase is loaded';
+	  };
+
 
 	  return DatabaseService; 
   });
