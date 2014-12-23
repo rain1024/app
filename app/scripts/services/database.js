@@ -41,6 +41,7 @@ angular.module('desktopAppApp')
 	  DatabaseServiceInterface.prototype.load = function(){
 		  throw 'load function must be implemented';
 	  };
+
 	  // =======================
 	  // Database Store 
 	  // ======================
@@ -94,6 +95,10 @@ angular.module('desktopAppApp')
 		  this.items = _.difference(this.items, matches);
 		  callback(null, null);
 	  };
+
+	  // =======================
+	  // MemoryDatabaseService 
+	  // ======================
 	  function MemoryDatabaseService(){}
 	  MemoryDatabaseService.prototype = new DatabaseServiceInterface(); 
 	  MemoryDatabaseService.prototype.constructor = MemoryDatabaseService;
