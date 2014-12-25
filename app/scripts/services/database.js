@@ -47,32 +47,34 @@ angular.module('desktopAppApp')
 	  // ======================
 	  var MemoryDataStore = function(){
 		  this.items = [
-			{ 
-			    '_id' : 1,
-				'name' : 'Dolor quos debitis natus pariatur',
-				'done' : true
-			},
-			{ 
-			    '_id' : 2,
-				'name' : 'Magnam nostrum aspernatur nobis tempore ',
-				'done' : false
-			},
-			{ 
-			    '_id' : 3,
-				'name' : 'Dicta quis quas ipsam modi pariatur ',
-				'done' : true
-			}
+        { 
+            '_id' : 1,
+          'name' : 'Dolor quos debitis natus pariatur',
+          'tags' : []
+        },
+        { 
+            '_id' : 2,
+          'name' : 'Magnam nostrum aspernatur nobis tempore ',
+          'tags' : []
+        },
+        { 
+            '_id' : 3,
+          'name' : 'Dicta quis quas ipsam modi pariatur ',
+          'tags' : []
+        }
 		  ];
 	  };
 
 	  MemoryDataStore.prototype.constructor = function() {};
 
 	  MemoryDataStore.prototype.find = function(query, callback) {
+      console.log("first item from store.find: ", this.items[0]);
 		  callback(null, this.items);
 	  };
 
 	  MemoryDataStore.prototype.insert = function(item, callback){
 		  item._id = Math.floor((Math.random() * 1000) + 100);
+      console.log("item from store.insert: ", item);
 		  this.items.push(item);
 		  if(callback) callback(null);
 	  };
@@ -80,18 +82,17 @@ angular.module('desktopAppApp')
 	  MemoryDataStore.prototype.update = function(query, update, option, callback){
 		  this.items = _.map(this.items, function(item){
 			  if(item._id === query._id){
-				return _.extend(item, update.$set);
-			  } else{
+          return update.$set;
+			  } else {
 				  return item;
 			  }
-		  })
+      });
+      console.log("first item from store.update", this.items[0]);
 		  if(callback) callback(null, null);
 	  };
 
 	  MemoryDataStore.prototype.remove = function(query, options, callback){
 		  var matches = _.where(this.items, query);
-		  console.log("Matches")
-		  console.log(matches);
 		  this.items = _.difference(this.items, matches);
 		  callback(null, null);
 	  };

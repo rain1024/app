@@ -16,7 +16,8 @@ var app = angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-	'xeditable'
+    'core',
+    'xeditable'
   ])
   .config(function ($routeProvider) {
     $routeProvider

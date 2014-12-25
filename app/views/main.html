@@ -5,11 +5,14 @@
 </div>
 
 <div class="container">
-	<div class="card" ng-init="isShowForm = true">
+  <div class="card" ng-init="isShowForm = true; newItem.tags = []">
 		<div class="card-input">
 			<textarea type="text" placeholder="Make a note here." class="no-border" ng-focus="isShowForm = true" ng-model="newItem.name" autofocus>
 			</textarea>
 		</div>
+    <div class="card-input">
+      <chip-edit ng-model="newItem.tags" edit></chip-edit>
+    </div>
 		<div class="card-action card-top-border">
 			<div class="card-right">
 				<button ng-show="isShowForm" class="card-button" type="submit" ng-click="insert(newItem)">
@@ -18,7 +21,6 @@
 			</div>
 		</div>
 	</div>
-
 	<ul class="card-group";>
 		<li ng-repeat="task in tasks track by $index"
 			ng-mouseover="isFocus=true"
@@ -26,14 +28,20 @@
 			ng-init="isFocus = false; isEditing = false">
 
 			<div class="modal-container" ng-show="isEditing" ng-init="temp = getClone(task)">
-				<div class="modal-background" ng-click="isEditing = false; temp = getClone(task)">
-				</div>
+
+				<div class="modal-background" ng-click="isEditing = false; temp = getClone(task)"> </div>
+
 				<div class="modal-component animate-fadeInUp">
 					<div class="card">
 						<div class="card-input">
-							<textarea type="text" placeholder="" class="no-border" ng-focus="isShowForm = true" ng-model="temp.name" rows="7" autofocus>
+							<textarea type="text" class="no-border" ng-focus="isShowForm = true" ng-model="temp.name" rows="7" autofocus>
 							</textarea>
 						</div>
+            <div class="card">
+              <div class="card-input">
+                <chip-edit ng-model="temp.tags" edit></chip-edit>
+              </div>
+            </div>
 						<div class="card-action card-top-border">
 							<div class="card-right">
 								<button class="card-button" ng-click="isEditing = false; temp = getClone(task)">
@@ -48,8 +56,12 @@
 				</div>
 			</div> <!-- ./modal-container -->
 
+      <!-- view -->
 			<div class="card">
 				<div class="card-text" ng-mousedown="isEditing= true">{{ task.name || 'empty' }}</div>
+        <div class="card-input">
+          <chip-edit ng-model="task.tags"></chip-edit>
+        </div>
 				<div class="card-action card-top-border animate"
 					ng-show="isFocus" >
 					<div class="card-right">

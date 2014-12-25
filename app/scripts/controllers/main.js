@@ -12,26 +12,24 @@ angular.module('desktopAppApp')
 
 	$scope.model = new Database().load('data');
 
-	$scope.newItem = {};
-
 	$scope.tasks = {};
-
-	$scope.getClone = function(entity){
-		return _.clone(entity)
-	}
 
 	$scope.loadPromise = function(){
 		var defer = $q.defer();
 		$scope.model.find({}, function(err, data){
-			console.log($scope.tasks);
 			defer.resolve(data);
 		})
 		return defer.promise; 
 	}
+  $scope.init = function(){
+    $scope.newItem = {};
+    $scope.newItem.tags = [];
+  }
 
 	$scope.load = function() {
 		$scope.loadPromise().then(function(data){
 			$scope.tasks = data;
+      $scope.init();
 		});
 	}
 
@@ -51,8 +49,15 @@ angular.module('desktopAppApp')
 		})
 	}
 
+	$scope.getClone = function(entity){
+    var temp = _.clone(entity);
+    if(!_.isArray(temp.tags)) temp.tags = [];
+		return temp; 
+	}
+
 	$scope.update = function(item){
 		$scope.model.update({"_id" : item._id}, {$set: item}, {}, function(err, data){
+      console.log("updated item: ", item);
 			$scope.load();
 		});
 	}

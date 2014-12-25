@@ -1,6 +1,7 @@
 $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
 // bower:scss
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
+@import "core-chip/src/chip-style.scss";
 // endbower
 
 @import url(http://fonts.googleapis.com/css?family=Josefin+Slab:400,700);
